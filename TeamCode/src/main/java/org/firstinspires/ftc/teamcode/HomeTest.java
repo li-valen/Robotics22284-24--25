@@ -87,7 +87,7 @@ public class HomeTest extends LinearOpMode {
                 telemetry.addData("2", bR.getCurrentPosition());
                 telemetry.addData("3", fR.getCurrentPosition());
                 telemetry.update();
-                sleep(2000);
+                sleep(2000); //sleep
             }
         }
     }
