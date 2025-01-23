@@ -23,12 +23,12 @@ public class TestBot {
                 .setColorScheme(new ColorSchemeBlueDark())
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(24, -64.25, Math.toRadians(270)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(24, -64.25, Math.toRadians(90)))
                 .setReversed(true)
-                .splineToLinearHeading(new Pose2d(3, -33, Math.toRadians(270)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(3, -33, Math.toRadians(90)), Math.toRadians(90))
                 .build());
 
-        myBot.setDimensions(15, 20);
+        myBot.setDimensions(20, 20);
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
