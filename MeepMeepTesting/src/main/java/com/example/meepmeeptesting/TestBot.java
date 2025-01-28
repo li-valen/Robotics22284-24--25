@@ -18,21 +18,33 @@ public class TestBot {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
 
-        RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+        RoadRunnerBotEntity leftBot = new DefaultBotBuilder(meepMeep)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .setColorScheme(new ColorSchemeBlueDark())
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(24, -64.25, Math.toRadians(90)))
+        leftBot.runAction(leftBot.getDrive().actionBuilder(new Pose2d(-24, -64.25, Math.toRadians(90)))
                 .setReversed(true)
-                .splineToLinearHeading(new Pose2d(3, -33, Math.toRadians(90)), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-50, -9), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-30, -9), Math.toRadians(90))
                 .build());
 
-        myBot.setDimensions(20, 20);
+        RoadRunnerBotEntity rightBot = new DefaultBotBuilder(meepMeep)
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setColorScheme(new ColorSchemeBlueDark())
+                .build();
+
+        rightBot.runAction(rightBot.getDrive().actionBuilder(new Pose2d(24, -62.25, Math.toRadians(90)))
+                .setReversed(true)
+                .strafeToLinearHeading(new Vector2d(55, -62.25), Math.toRadians(90))
+                .build());
+        
+        leftBot.setDimensions(18, 18);
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
-                .addEntity(myBot)
+                .addEntity(leftBot)
+                .addEntity(rightBot)
                 .start();
     }
 }
