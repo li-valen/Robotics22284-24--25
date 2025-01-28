@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drawing;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
@@ -25,12 +26,15 @@ public class ValenTeleOp extends LinearOpMode {
         Servo boostRight = hardwareMap.get(Servo.class, "boostRight");
         Servo liftLeft = hardwareMap.get(Servo.class, "liftLeft");
         Servo liftRight = hardwareMap.get(Servo.class, "liftRight");
+        ElapsedTime runtime = new ElapsedTime();
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
         waitForStart();
-
+        runtime.reset();
+        double t  = -9.0;
+        int stage = 0;
         while (opModeIsActive()) {
             drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
@@ -42,32 +46,70 @@ public class ValenTeleOp extends LinearOpMode {
             //valen smells like stinky feet
             drive.updatePoseEstimate();
 
+            //raise just boosters
             if (gamepad2.a){
                 boostLeft.setPosition(1);
                 boostRight.setPosition(1);
+                stage = 1;
             }
 
+            //retract just boosters
             if (gamepad2.b){
                 boostLeft.setPosition(0);
                 boostRight.setPosition(0);
+                stage = 0;
             }
 
+            //retract just lifts
             if (gamepad2.y){
                 liftLeft.setPosition(0);
                 liftRight.setPosition(1);
             }
 
+            //extend lifts, drop boosts
             if (gamepad2.x){
                 liftLeft.setPosition(0.5);
                 liftRight.setPosition(0.5);
                 boostLeft.setPosition(0);
                 boostRight.setPosition(0);
+                stage = 3;
+            }
+
+            //start lift autostage
+            if (t+5 < runtime.seconds() && runtime.seconds() < t+5.5){
+                liftLeft.setPosition(0.5);
+                liftRight.setPosition(0.5);
+                stage = 2;
+            }
+
+            //drop boost autostage
+            if (t+7.5 < runtime.seconds() && runtime.seconds() < t+8){
+                boostLeft.setPosition(0);
+                boostRight.setPosition(0);
+                stage = 3;
+            }
+            //init autostage
+            if (gamepad2.dpad_up){
+                boostLeft.setPosition(1);
+                boostRight.setPosition(1);
+                stage = 1;
+                t = runtime.seconds();
+            }
+
+            //universal reset
+            if (gamepad2.dpad_down){
+                boostLeft.setPosition(0);
+                boostRight.setPosition(0);
+                liftLeft.setPosition(0);
+                liftRight.setPosition(1);
+                stage = 0;
             }
 
             telemetry.addData("x", drive.pose.position.x);
             telemetry.addData("y", drive.pose.position.y);
             telemetry.addData("heading (deg)", Math.toDegrees(drive.pose.heading.toDouble()));
             telemetry.addData("VALEN SMELLS LIKE?", "STINKY FEET");
+            telemetry.addData("Stage:", stage);
             telemetry.update();
 
         }
