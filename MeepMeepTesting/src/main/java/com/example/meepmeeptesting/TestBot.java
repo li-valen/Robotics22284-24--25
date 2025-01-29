@@ -23,8 +23,9 @@ public class TestBot {
                 .setColorScheme(new ColorSchemeBlueDark())
                 .build();
 
-        leftBot.runAction(leftBot.getDrive().actionBuilder(new Pose2d(-24, -64.25, Math.toRadians(90)))
+        leftBot.runAction(leftBot.getDrive().actionBuilder(new Pose2d(-10, -64.25, Math.toRadians(90)))
                 .setReversed(true)
+                .strafeToLinearHeading(new Vector2d(-24, -64.25), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-50, -9), Math.toRadians(90))
                 .strafeToLinearHeading(new Vector2d(-30, -9), Math.toRadians(90))
                 .build());
@@ -34,7 +35,7 @@ public class TestBot {
                 .setColorScheme(new ColorSchemeBlueDark())
                 .build();
 
-        rightBot.runAction(rightBot.getDrive().actionBuilder(new Pose2d(24, -62.25, Math.toRadians(90)))
+        rightBot.runAction(rightBot.getDrive().actionBuilder(new Pose2d(10, -62.25, Math.toRadians(90)))
                 .setReversed(true)
                 .strafeToLinearHeading(new Vector2d(55, -62.25), Math.toRadians(90))
                 .build());

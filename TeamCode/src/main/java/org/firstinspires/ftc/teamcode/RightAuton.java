@@ -7,18 +7,24 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
-@Autonomous(name = "BLUE_TEST_AUTO_PIXEL", group = "Autonomous")
+@Autonomous(name = "RIGHT_AUTON", group = "Autonomous")
 public class RightAuton extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
+        Servo boostLeft = hardwareMap.get(Servo.class, "boostLeft");
+        Servo boostRight = hardwareMap.get(Servo.class, "boostRight");
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         waitForStart();
+        boostRight.setPosition(0.5);
+        boostLeft.setPosition(0.5);
+
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(24, -62.25, Math.toRadians(90)))
+                drive.actionBuilder(new Pose2d(10, -62.25, Math.toRadians(90)))
                         .setReversed(true)
-                        .strafeToLinearHeading(new Vector2d(55, -62.25), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(40, 0), Math.toRadians(90))
                         .build());
     }
 

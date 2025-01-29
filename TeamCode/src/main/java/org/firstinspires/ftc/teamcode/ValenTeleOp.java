@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -11,9 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Drawing;
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 
 @Config
@@ -26,6 +22,7 @@ public class ValenTeleOp extends LinearOpMode {
         Servo boostRight = hardwareMap.get(Servo.class, "boostRight");
         Servo liftLeft = hardwareMap.get(Servo.class, "liftLeft");
         Servo liftRight = hardwareMap.get(Servo.class, "liftRight");
+        Servo claw = hardwareMap.get(Servo.class, "claw");
         ElapsedTime runtime = new ElapsedTime();
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -101,9 +98,20 @@ public class ValenTeleOp extends LinearOpMode {
                 boostLeft.setPosition(0);
                 boostRight.setPosition(0);
                 liftLeft.setPosition(0);
-                liftRight.setPosition(1);
+                claw.setPosition(1);
                 stage = 0;
             }
+
+            //grab
+            if (gamepad2.right_bumper){
+                claw.setPosition(0.25);
+            }
+
+            //let go
+            if (gamepad2.left_bumper){
+                claw.setPosition(1);
+            }
+
 
             telemetry.addData("x", drive.pose.position.x);
             telemetry.addData("y", drive.pose.position.y);
