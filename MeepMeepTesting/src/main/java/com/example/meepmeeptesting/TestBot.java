@@ -37,7 +37,17 @@ public class TestBot {
 
         rightBot.runAction(rightBot.getDrive().actionBuilder(new Pose2d(10, -62.25, Math.toRadians(90)))
                 .setReversed(true)
-                .strafeToLinearHeading(new Vector2d(55, -62.25), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(37, -62.25), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(37, -24), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(47, -8), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(47, -62.25), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(47, -8), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(57, -8), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(57, -62.25), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(57, -8), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(67, -8), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(67, -62.25), Math.toRadians(270))
+
                 .build());
         
         leftBot.setDimensions(18, 18);
