@@ -28,7 +28,10 @@ public class RightAuton extends LinearOpMode {
                 drive.actionBuilder(new Pose2d(10, -62.25, Math.toRadians(90)))
                         .setReversed(true)
                         .strafeToLinearHeading(new Vector2d(40, 0), Math.toRadians(90))
-                        .build()));
+                        .build(),
+
+                lift.releaseSample()
+        ));
     }
 
 }

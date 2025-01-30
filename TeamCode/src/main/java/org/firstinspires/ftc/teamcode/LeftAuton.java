@@ -34,7 +34,11 @@ public class LeftAuton extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d(-24, -64.25), Math.toRadians(90))
                         .strafeToLinearHeading(new Vector2d(-50, -9), Math.toRadians(90))
                         .strafeToLinearHeading(new Vector2d(-30, -9), Math.toRadians(90))
-                        .build()));
+                        .build(),
+
+                lift.releaseSample()
+
+        ));
     }
 
 }

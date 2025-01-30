@@ -38,4 +38,18 @@ class Lift{
             }
         };
     }
+
+    public Action releaseSample() {
+        return new Action() {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                claw.setPosition(1);
+
+                double grab = claw.getPosition();
+                packet.put("clawPos", grab);
+
+                return false;
+            }
+        };
+    }
 }
